@@ -24,7 +24,7 @@ text = "Na mbu Chineke kere elu  igwe na uwa. Uwa we buru ihe tọb͕ọrọ n'e
 def userPrompt(result = "bụ"):
     return result
 latin_sent = userPrompt() # input any value into the bracket to translate that value or leave it blank to translate the default value ("bụ")
-nsibidi = open("IgbotoNsibidi.json")
+nsibidi = open("IgbotoNsibidi.json" , encoding="utf8")
 nsibidi = json.load(nsibidi)
 nsibidi = dict(nsibidi)
 
