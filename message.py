@@ -1,4 +1,4 @@
-# so if I have the Latin-Igbo sentence of:
+# so if I have the Latin-Igbo sentence of: 
 
 latin_sent = input("Please type latin Igbo : ")
 
