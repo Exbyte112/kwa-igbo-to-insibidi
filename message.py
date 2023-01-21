@@ -1,6 +1,8 @@
 # so if I have the Latin-Igbo sentence of: 
 
-latin_sent = input("Please type latin Igbo : ")
+#latin_sent = input("Please type latin Igbo : ")
+
+latin_sent = "bụ"
 
 nsibidi = dict(
     {
@@ -5441,23 +5443,4 @@ nsibidi = dict(
     }
 )
 
-oov = []  # 'oov' stands for 'out of vocabulary', it's a common problem in nlp. This in this list you'll store all your unaccounted for words that don't have a corresponding Nsibidi in your dictionary
-
-nsibidi_sent = []
-nsibidi_list = []
-for i in latin_sent.split():
-    if i not in nsibidi.keys():
-        oov.append(i)
-    else:
-        nsibidi_sent.append(nsibidi[i])
-
-ans = nsibidi_sent
-
-print(oov)
-if type(nsibidi_sent) == str:
-    print(' '.join(ans))
-elif type(nsibidi_sent) == list:
-    import random
-    ans = random.choice(nsibidi_sent)
-    print(' '.join(ans))
 
