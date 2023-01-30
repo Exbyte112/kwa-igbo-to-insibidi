@@ -3,11 +3,35 @@ import random
 # ==================================
 # PROGRAM STARTS HERE
 
-sample = "ikpe i kpe ekpere e kpe re"
+sample = "bàdà bá"
 
 nsibidi = open("IgbotoNsibidi.json" , encoding="utf8")
 nsibidi = json.load(nsibidi)
 nsibidi = dict(nsibidi)
+
+NSdictionary = open("NSDictionary.json", encoding="utf8")
+NSdictionary = json.load(NSdictionary)
+NSdictionary = NSdictionary
+
+# collect all the parameters from the dictionary and store them in a list
+symList = []
+for i in range(len(NSdictionary)):
+    symList.append(NSdictionary[i]["sym"])
+
+proList = []
+for i in range(len(NSdictionary)):
+    proList.append(NSdictionary[i]["pro"])
+
+formList = []
+for i in range(len(NSdictionary)):
+    formList.append(NSdictionary[i]["form"])
+
+defsList = []
+for i in range(len(NSdictionary)):
+    defsList.append(NSdictionary[i]["defs"])
+
+nsibidiList = list(nsibidi.keys())
+print(nsibidiList)
 
 randomiser = random.choice(list(nsibidi.keys()))
 
@@ -44,7 +68,7 @@ def choiceAnswers(ans = latin_sent):
         if type(nsibidi[i]) == list:
             print("Choose an answer")
             for j in range(len(nsibidi[i])):
-                print(j, nsibidi[i][j])
+                print(f"{j} {proList[nsibidiList.index(i)]} {nsibidi[i][j]}" )
             ans = int(input("Enter the number of the answer you want: "))
             answer.append(nsibidi[i][ans])
             count += 1
