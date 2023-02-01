@@ -2,11 +2,12 @@ import json
 from os import symlink
 import random
 from unidecode import unidecode
+import os
+os.system('cls||clear')
 # ==================================
 # PROGRAM STARTS HERE
 
-sample = "á:bö á:bökö áböshį" # This is the sample text (change it to whatever you want)
-
+sample = "á:bö á:bökö áböshį ágü" # This is the sample text (change it to whatever you want)
 nsibidi = open("NSdictionary.json" , encoding="utf8") # open the json file
 nsibidi = json.load(nsibidi) # load the json file
 nsibidi = list(nsibidi) # convert the json file to a list
@@ -48,10 +49,14 @@ latin_sent = userPrompt() # input any value into the bracket to translate that v
 print(f"===============\nLATIN: {userPrompt()}\n===============") # print the user input
 
 def Choice():
+    global proList
+    global rawProList
+    val = []
     for word in sample.split():
-        global proList
-        indexFinder = proList.index(word)
-
+        if word in proList:
+            indexFinder = proList.index(word)
+        else:
+            indexFinder = rawProList.index(word)
         def getSym(val = 0): # this function gets the sym value from symList
             return symList[indexFinder + val] # return the random word
         def getPro(val = 0): # this function gets the Pro value from proList
@@ -62,21 +67,58 @@ def Choice():
             return formList[indexFinder + val] # return the random word
         def getDefs(val = 0): # this function gets the Defs value from defsList
             return defsList[indexFinder + val] # return the random word
-        count = proList.count(word)
-        if count > 1:
-            answer = []
-            countList = []
-            for i in range(count):
-                countList.append(word)
-            previewText = " ".join(answer)
-            print(f"Completed: {previewText} __________")
-            print("choose an option: ")
-            z = range(count)
-            for j in z:
-                    pr = proList = [i]
-                    print(f"{j} {countList[i]} [{getSym(j)}] ({getDefs(j)})" )
-            choice = int(input("Enter your choice: "))
-            return (f"===============\nNSIBIDI: {getSym(choice)}\n===============")
+        previewText = " ".join(val)
+        if word in proList:
+            count = proList.count(word)
+            if count > 1:
+                answer = []
+                countList = []
+                for i in range(count):
+                    countList.append(word)
+                
+                print(f"Completed: {previewText} __________")
+                print("choose an option: ")
+                z = range(count)
+                for j in z:
+                        pr = proList = [i]
+                        print(f"{j} {countList[i]} [{getSym(j)}] ({getDefs(j)})" )
+                choice = int(input("Enter your choice: "))
+                val.append(countList[choice])
+                val.append("from nest if statement")
+            elif count == 1:
+                val.append(word)
+                val.append("from nest elif statement")
+            else:
+                val.append(word)
+                val.append("from nest else statement")
+        elif word in rawProList:
+            ans = []
+            count = rawProList.count(word)
+            if count > 1:
+                answer = []
+                countList = []
+                for i in range(count):
+                    countList.append(word)
+                previewText = " ".join(ans)
+                print(f"Completed: {previewText} __________")
+                print("choose an option: ")
+                z = range(count)
+                for j in z:
+                        pr = rawProList = [i]
+                        print(f"{j} {countList[i]} [{getSym(j)}] ({getDefs(j)})" )
+                choice = int(input("Enter your choice: "))
+                val.append(countList[choice])
+                val.append("from nest if statement")
+            elif count == 1:
+                val.append(word)
+                val.append("from nest elif statement")
+            else:
+                val.append(word)
+                val.append("from nest else statement")
+        else:
+            val.append(word)
+            val.append("from else statement")
+    return " ".join(val)
     
 print(Choice())
 
