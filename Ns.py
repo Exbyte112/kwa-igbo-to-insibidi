@@ -9,7 +9,7 @@ nsibidi = open("IgbotoNsibidi.json" , encoding="utf8")
 nsibidi = json.load(nsibidi)
 nsibidi = dict(nsibidi)
 
-NSdictionary = open("NSDictionary.json", encoding="utf8")
+NSdictionary = open("NSdictionary.json", encoding="utf8")
 NSdictionary = json.load(NSdictionary)
 NSdictionary = NSdictionary
 

@@ -5,7 +5,7 @@ from unidecode import unidecode
 # ==================================
 # PROGRAM STARTS HERE
 
-sample = "chü" # This is the sample text (change it to whatever you want)
+sample = "á:bö á:bökö áböshį" # This is the sample text (change it to whatever you want)
 
 nsibidi = open("NSdictionary.json" , encoding="utf8") # open the json file
 nsibidi = json.load(nsibidi) # load the json file
@@ -13,21 +13,29 @@ nsibidi = list(nsibidi) # convert the json file to a list
 
 # collect all the parameters from the dictionary and store them in a list
 symList = []
-proList = []
+rawProList = []
 proList2 = []
 formList = []
 defsList = []
+proList = []
 
 for i in range(len(nsibidi)): # loop through the list
     symList.append(nsibidi[i]["sym"]) # append the sym parameter to the symList
-    proList.append(nsibidi[i]["pro"]) # append the pro parameter to the proList
+    rawProList.append(nsibidi[i]["pro"]) # append the pro parameter to the proList
     formList.append(nsibidi[i]["form"]) # append the form parameter to the formList
     defsList.append(nsibidi[i]["defs"]) # append the defs parameter to the defsList
-for i in range(len(proList)): # loop through the proList
-    if type(proList[i]) != str:
-        proList2.append("None")
+# remove all noneType objects from the list
+for i in rawProList:
+    if i is not None:
+        proList.append(i)
     else:
-        proList2.append(unidecode(proList[i]))
+        proList.append("none")
+for i in range(len(proList)): # loop through the proList
+    if proList[i] is None:
+        proList2.append(str("none"))
+    else:
+        proList2.append(str(unidecode(proList[i])))
+
 
 # get a random number that's the same length as the list
 randomiser = random.randint(0, len(symList)) # get a random number that's the same length as the list (this will be used to get a random word from the dictionary)
@@ -39,21 +47,56 @@ latin_sent = userPrompt() # input any value into the bracket to translate that v
 
 print(f"===============\nLATIN: {userPrompt()}\n===============") # print the user input
 
-def getSym(): # this function gets the sym value from symList
-    return symList[randomiser] # return the random word
-def getPro(): # this function gets the Pro value from proList
-    return proList[proList.index(latin_sent)] # return the random word
-def getPro2(): # this function gets the Pro value from proList
-    return proList2[randomiser] # return the random word
-def getForm(): # this function gets the Form value from formList
-    return formList[randomiser] # return the random word
-def getDefs(): # this function gets the Defs value from defsList
-    return defsList[randomiser] # return the random word
+def Choice():
+    for word in sample.split():
+        global proList
+        indexFinder = proList.index(word)
+
+        def getSym(val = 0): # this function gets the sym value from symList
+            return symList[indexFinder + val] # return the random word
+        def getPro(val = 0): # this function gets the Pro value from proList
+            return proList[indexFinder + val] # return the random word
+        def getPro2(val = 0): # this function gets the Pro value from proList
+            return proList2[indexFinder + val] # return the random word
+        def getForm(val = 0): # this function gets the Form value from formList
+            return formList[indexFinder + val] # return the random word
+        def getDefs(val = 0): # this function gets the Defs value from defsList
+            return defsList[indexFinder + val] # return the random word
+        count = proList.count(word)
+        if count > 1:
+            answer = []
+            countList = []
+            for i in range(count):
+                countList.append(word)
+            previewText = " ".join(answer)
+            print(f"Completed: {previewText} __________")
+            print("choose an option: ")
+            z = range(count)
+            for j in z:
+                    pr = proList = [i]
+                    print(f"{j} {countList[i]} [{getSym(j)}] ({getDefs(j)})" )
+            choice = int(input("Enter your choice: "))
+            return (f"===============\nNSIBIDI: {getSym(choice)}\n===============")
+    
+print(Choice())
+
+"""def choiceAns():
+    #when sample contains a value that has more than one definition, this function will ask the user to choose a definition
+    answer = []
+    count = 1
+    for i in proList:
+        previewText = " ".join(answer)
+        print(f"Completed: {previewText} __________")
+        print("choose an option: ")
+        z = range(count)
+        for j in z:
+                pr = proList = [i]
+                print(f"{j} {i}" )"""
 
 def randomWord(): # this function gets a random word from the dictionary
-    return f"Sym: {getSym()}\nPro: {getPro2()}\nForm: {getForm()}\nDefs: {getDefs()}\nPosition: {(randomiser*6)+3}" # return the random word
+    return f"Sym: {getSym()}\nPro: {getPro2()}\nForm: {getForm()}\nDefs: {getDefs()}\nPosition: {(indexFinder*6)+3}" # return the random word
 
 
 
 
-print(f"===============\nNSIBIDI: {randomWord()}\n===============") # print the random word
+"""print(f"===============\nNSIBIDI: {randomWord()}\n===============")""" # print the random word
