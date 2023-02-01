@@ -53,6 +53,7 @@ def Choice():
     global rawProList
     val = []
     for word in sample.split():
+        previewText = " ".join(val)
         if word in proList:
             indexFinder = proList.index(word)
         else:
@@ -67,78 +68,51 @@ def Choice():
             return formList[indexFinder + val] # return the random word
         def getDefs(val = 0): # this function gets the Defs value from defsList
             return defsList[indexFinder + val] # return the random word
-        previewText = " ".join(val)
+        
         if word in proList:
             count = proList.count(word)
             if count > 1:
+                print(f"Completed: {previewText} __________")
                 answer = []
                 countList = []
                 for i in range(count):
                     countList.append(word)
                 
-                print(f"Completed: {previewText} __________")
+                
                 print("choose an option: ")
                 z = range(count)
                 for j in z:
                         pr = proList = [i]
                         print(f"{j} {countList[i]} [{getSym(j)}] ({getDefs(j)})" )
                 choice = int(input("Enter your choice: "))
-                val.append(countList[choice])
-                val.append("from nest if statement")
+                val.append(getSym())
             elif count == 1:
-                val.append(word)
-                val.append("from nest elif statement")
+                val.append(getSym())
             else:
-                val.append(word)
-                val.append("from nest else statement")
+                val.append(getSym())
         elif word in rawProList:
             ans = []
             count = rawProList.count(word)
             if count > 1:
+                print(f"Completed: {previewText} __________")
                 answer = []
                 countList = []
                 for i in range(count):
                     countList.append(word)
-                previewText = " ".join(ans)
-                print(f"Completed: {previewText} __________")
                 print("choose an option: ")
                 z = range(count)
                 for j in z:
                         pr = rawProList = [i]
                         print(f"{j} {countList[i]} [{getSym(j)}] ({getDefs(j)})" )
                 choice = int(input("Enter your choice: "))
-                val.append(countList[choice])
-                val.append("from nest if statement")
+                val.append(getSym())
             elif count == 1:
-                val.append(word)
-                val.append("from nest elif statement")
+                val.append(getSym())
             else:
-                val.append(word)
-                val.append("from nest else statement")
+                val.append(getSym())
         else:
-            val.append(word)
-            val.append("from else statement")
+            val.append(getSym())
     return " ".join(val)
     
 print(Choice())
 
-"""def choiceAns():
-    #when sample contains a value that has more than one definition, this function will ask the user to choose a definition
-    answer = []
-    count = 1
-    for i in proList:
-        previewText = " ".join(answer)
-        print(f"Completed: {previewText} __________")
-        print("choose an option: ")
-        z = range(count)
-        for j in z:
-                pr = proList = [i]
-                print(f"{j} {i}" )"""
-
-def randomWord(): # this function gets a random word from the dictionary
-    return f"Sym: {getSym()}\nPro: {getPro2()}\nForm: {getForm()}\nDefs: {getDefs()}\nPosition: {(indexFinder*6)+3}" # return the random word
-
-
-
-
-"""print(f"===============\nNSIBIDI: {randomWord()}\n===============")""" # print the random word
