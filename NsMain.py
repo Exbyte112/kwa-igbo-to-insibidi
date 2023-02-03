@@ -45,7 +45,7 @@ def userPrompt(result = sample): # this function gets the user input
     return result
 
 latin_sent = userPrompt() # input any value into the bracket to translate that value or leave it blank to translate a random word
-print(proList2)
+
 print(f"===============\nLATIN: {userPrompt()}\n===============") # print the user input
 
 def Choice():
