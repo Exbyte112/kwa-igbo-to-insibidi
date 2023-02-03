@@ -7,7 +7,7 @@ os.system('cls||clear')
 # ==================================
 # PROGRAM STARTS HERE
 
-sample = "á:bö á:bökö áböshį ágü" # This is the sample text (change it to whatever you want)
+sample = "á:bö á:bökö áböshį ágü agu e" # This is the sample text (change it to whatever you want)
 nsibidi = open("NSdictionary.json" , encoding="utf8") # open the json file
 nsibidi = json.load(nsibidi) # load the json file
 nsibidi = list(nsibidi) # convert the json file to a list
@@ -45,10 +45,11 @@ def userPrompt(result = sample): # this function gets the user input
     return result
 
 latin_sent = userPrompt() # input any value into the bracket to translate that value or leave it blank to translate a random word
-
+print(proList2)
 print(f"===============\nLATIN: {userPrompt()}\n===============") # print the user input
 
 def Choice():
+    oov = []
     global proList
     global rawProList
     val = []
@@ -56,8 +57,10 @@ def Choice():
         previewText = " ".join(val)
         if word in proList:
             indexFinder = proList.index(word)
-        else:
+        elif word in rawProList:
             indexFinder = rawProList.index(word)
+        else:
+            oov.append(word)
         def getSym(val = 0): # this function gets the sym value from symList
             return symList[indexFinder + val] # return the random word
         def getPro(val = 0): # this function gets the Pro value from proList
@@ -68,7 +71,7 @@ def Choice():
             return formList[indexFinder + val] # return the random word
         def getDefs(val = 0): # this function gets the Defs value from defsList
             return defsList[indexFinder + val] # return the random word
-        
+
         if word in proList:
             count = proList.count(word)
             if count > 1:
@@ -111,7 +114,26 @@ def Choice():
             else:
                 val.append(getSym())
         else:
-            val.append(getSym())
+            if word in proList2:
+                rep = input(f"{word} is not recognised, do you mean [{getPro2()}] [{getSym()}] ({getDefs()})? [Y/N]").upper()
+                if rep == "Y" or rep == "N":
+                    if rep == "Y" or rep == "y":
+                        val.append(getSym())
+                    else:
+                        print("please restart the program")
+                else:
+                    print("You did not select a valid option")
+            elif word in oov:
+                rep = input(f"the word seletected [{word}] is not correct, do you want to attempt to translate anyway? [Y/N]").upper()
+                if rep == "Y" or rep == "N":
+                    if rep == "Y" or rep == "y":
+                        val.append(word)
+                    else:
+                        print("please restart the program")
+                else:
+                    print("You did not select a valid option")
+            else:
+                print("entry error")
     return " ".join(val)
     
 print(Choice())
