@@ -55,12 +55,15 @@ def Choice():
     val = []
     for word in sample.split():
         previewText = " ".join(val)
-        if word in proList:
-            indexFinder = proList.index(word)
-        elif word in rawProList:
-            indexFinder = rawProList.index(word)
-        else:
-            oov.append(word)
+        def chooser(word = word):
+            if word in proList:
+                return proList.index(word)
+            elif word in rawProList:
+                return rawProList.index(word)
+            else:
+                oov.append(word)
+                return 0
+        indexFinder = chooser()
         def getSym(val = 0): # this function gets the sym value from symList
             return symList[indexFinder + val] # return the random word
         def getPro(val = 0): # this function gets the Pro value from proList
