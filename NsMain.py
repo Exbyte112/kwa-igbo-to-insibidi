@@ -7,7 +7,7 @@ os.system('cls||clear')
 # ==================================
 # PROGRAM STARTS HERE
 
-sample = "á:bö á:bökö áböshį ágü agu e" # This is the sample text (change it to whatever you want)
+sample = "uba ba uba gwa ba" # This is the sample text (change it to whatever you want)
 nsibidi = open("NSdictionary.json" , encoding="utf8") # open the json file
 nsibidi = json.load(nsibidi) # load the json file
 nsibidi = list(nsibidi) # convert the json file to a list
